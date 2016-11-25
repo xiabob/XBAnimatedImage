@@ -10,26 +10,30 @@ import UIKit
 import ImageIO
 import MobileCoreServices
 
-fileprivate let kDefaultFluency: CGFloat = 0.8 //默认gif展示的流畅度，1是最好
-fileprivate let kFloatEPS: Float = 1E-6 //float的精确度
+fileprivate let kDefaultFluency: Float = 0.8 //默认gif展示的流畅度，1是最好
+fileprivate let kDefaultPlayRate: Float = 1
+fileprivate let kFloatEPS: Float = 1E-6 //float的精度
 fileprivate let kFrameFactor = [60, 30, 20, 15, 12, 10, 6, 5, 4, 3, 2, 1] //gif展示最大60帧，这是60的全部因子
 
 fileprivate let kAnimatedImageProperties = "kAnimatedImageProperties"
 
 open class XBAnimatedImage: UIImage {
     
+    //MARK: - Var
     private var animatedImageProperties: AnimatedImageProperties?
+    public var animatedImageSource: CGImageSource? {return animatedImageProperties?.imageSource}
+    public var animatedImageDisplayRefreshFactor: Int {return animatedImageProperties?.displayRefreshFactor ?? 1}
+    public var animatedImageSizeMB: Int {return animatedImageProperties?.imageSize ?? 0}
+    public var animatedImageCount: Int {return animatedImageProperties?.imageCount ?? 1}
+    public var animatedImageDisplayOrder: [Int] {return animatedImageProperties?.displayOrder ?? []}
     
-    //MARK: - API Var
-    open var animatedImageSource: CGImageSource? {return animatedImageProperties?.imageSource}
-    open var animatedImageDisplayRefreshFactor: Int? {return animatedImageProperties?.displayRefreshFactor}
-    open var animatedImageSizeMB: Int? {return animatedImageProperties?.imageSize}
-    open var animatedImageCount: Int? {return animatedImageProperties?.imageCount}
-    open var animatedImageDisplayOrder: [Int]? {return animatedImageProperties?.displayOrder}
     open var isGif = true
+    open var animatedImageFluency: Float {return animatedImageProperties?.fluency ?? kDefaultFluency}
+    
+    //MARK: - Init
     
     /// 设置image，imageData是图片数据，fluency设置gif展示的质量，0<fluency<=1
-    public init(imageData: Data, fluency: CGFloat = kDefaultFluency) {
+    public init(imageData: Data, fluency: Float = kDefaultFluency) {
         super.init()
         setAnimatedImage(imageData: imageData, fluency: fluency)
     }
@@ -43,15 +47,17 @@ open class XBAnimatedImage: UIImage {
     }
     
     /// 设置image，imageData是图片数据，fluency设置gif展示的质量，0<fluency<=1
-    open func setAnimatedImage(imageData: Data, fluency: CGFloat = kDefaultFluency) {
+    open func setAnimatedImage(imageData: Data, fluency: Float = kDefaultFluency) {
         animatedImageProperties = AnimatedImageProperties()
         animatedImageProperties?.imageSource = CGImageSourceCreateWithData(imageData as CFData, nil)
         let imageSourceContainerType = CGImageSourceGetType(animatedImageProperties!.imageSource!) ?? "" as CFString
         isGif = UTTypeConformsTo(imageSourceContainerType, kUTTypeGIF)
         
         if isGif {
+            animatedImageProperties?.fluency = fluency
+            
             if fluency <= 0 || fluency > 1 {
-                print("Illegal input parameter: 0<fluency<=1")
+                debugPrint("Illegal input parameter: 0<fluency<=1")
                 calculateDelayFrame(delayTimes: calculateDelayTimes(imageSource: animatedImageSource), fluency: kDefaultFluency)
             } else {
                 calculateDelayFrame(delayTimes: calculateDelayTimes(imageSource: animatedImageSource), fluency: fluency)
@@ -93,13 +99,13 @@ open class XBAnimatedImage: UIImage {
             }
             
             //这是每一张图片展示的时间
-            return (delayNumber.floatValue < kFloatEPS) ? 0.1 : delayNumber.floatValue
+            return ((delayNumber.floatValue < kFloatEPS) ? 0.1 : delayNumber.floatValue)
         }
         
         return frameDelayTimes
     }
     
-    private func calculateDelayFrame(delayTimes: [Float], fluency: CGFloat) {
+    private func calculateDelayFrame(delayTimes: [Float], fluency: Float) {
         var delays = delayTimes
         
         let maxFPS = kFrameFactor.first ?? 60
@@ -134,7 +140,7 @@ open class XBAnimatedImage: UIImage {
             }
             
             //找到合适的值了
-            if CGFloat(frameLoseCount) <= CGFloat(displayPositions.count) * (1-fluency) ||
+            if Float(frameLoseCount) <= Float(displayPositions.count) * (1-fluency) ||
                 index == displayRefreshDelayTime.count-1 {
                 animatedImageProperties?.imageCount = displayPositions.last
                 animatedImageProperties?.displayRefreshFactor = kFrameFactor[index]
@@ -165,9 +171,10 @@ open class XBAnimatedImage: UIImage {
 
 fileprivate class AnimatedImageProperties {
     var imageSource: CGImageSource?
-    var displayRefreshFactor: Int?
-    var imageSize: Int?
-    var imageCount: Int?
-    var displayOrder: [Int]?
+    var displayRefreshFactor: Int? //刷新因数 == CADisplayLink.frameInterval
+    var imageSize: Int?  //动图文件大小，单位是MB
+    var imageCount: Int? //动图包含的图片张数
+    var displayOrder: [Int]? //图片展示的次序
+    var fluency: Float = kDefaultFluency //图片质量，fluency设置gif展示的质量，0<fluency<=1
 }
 

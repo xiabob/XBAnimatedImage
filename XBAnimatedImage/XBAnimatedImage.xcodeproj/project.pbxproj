@@ -16,8 +16,8 @@
 		740A5A801DE6C3AD00303EC3 /* XBAnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740A5A7F1DE6C3AD00303EC3 /* XBAnimatedImageView.swift */; };
 		740A5A821DE6CD5F00303EC3 /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 740A5A811DE6CD5F00303EC3 /* 1.gif */; };
 		740A5A841DE6D4C300303EC3 /* 3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 740A5A831DE6D4C300303EC3 /* 3.gif */; };
-		740A5A881DE6D61E00303EC3 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 740A5A871DE6D61E00303EC3 /* test.png */; };
 		740A5A8A1DE6E19500303EC3 /* 2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 740A5A891DE6E19500303EC3 /* 2.gif */; };
+		745FC7EB1DE7DEBC00FD7983 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 745FC7EA1DE7DEBC00FD7983 /* test.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,8 +32,8 @@
 		740A5A7F1DE6C3AD00303EC3 /* XBAnimatedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XBAnimatedImageView.swift; sourceTree = "<group>"; };
 		740A5A811DE6CD5F00303EC3 /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
 		740A5A831DE6D4C300303EC3 /* 3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 3.gif; sourceTree = "<group>"; };
-		740A5A871DE6D61E00303EC3 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
 		740A5A891DE6E19500303EC3 /* 2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 2.gif; sourceTree = "<group>"; };
+		745FC7EA1DE7DEBC00FD7983 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +76,7 @@
 				740A5A811DE6CD5F00303EC3 /* 1.gif */,
 				740A5A891DE6E19500303EC3 /* 2.gif */,
 				740A5A831DE6D4C300303EC3 /* 3.gif */,
-				740A5A871DE6D61E00303EC3 /* test.png */,
+				745FC7EA1DE7DEBC00FD7983 /* test.jpg */,
 			);
 			path = XBAnimatedImage;
 			sourceTree = "<group>";
@@ -151,12 +151,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				740A5A841DE6D4C300303EC3 /* 3.gif in Resources */,
+				745FC7EB1DE7DEBC00FD7983 /* test.jpg in Resources */,
 				740A5A821DE6CD5F00303EC3 /* 1.gif in Resources */,
 				740A5A751DE680BF00303EC3 /* LaunchScreen.storyboard in Resources */,
 				740A5A8A1DE6E19500303EC3 /* 2.gif in Resources */,
 				740A5A721DE680BF00303EC3 /* Assets.xcassets in Resources */,
 				740A5A701DE680BF00303EC3 /* Main.storyboard in Resources */,
-				740A5A881DE6D61E00303EC3 /* test.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +334,7 @@
 				740A5A7B1DE680BF00303EC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
