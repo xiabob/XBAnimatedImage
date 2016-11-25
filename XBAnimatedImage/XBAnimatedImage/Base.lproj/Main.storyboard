@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,10 +23,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="P4c-Gm-tCT">
-                                <rect key="frame" x="128" y="617" width="118" height="31"/>
+                                <rect key="frame" x="14" y="617" width="347" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="CCD-OI-fZB"/>
-                                    <constraint firstAttribute="width" constant="114" id="gpU-tK-xXR"/>
                                 </constraints>
                                 <connections>
                                     <action selector="changeRate:" destination="BYZ-38-t0r" eventType="valueChanged" id="Qgv-4i-v11"/>
@@ -34,6 +34,8 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="P4c-Gm-tCT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="N8S-Ge-7lK"/>
+                            <constraint firstItem="P4c-Gm-tCT" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="T3k-32-yM4"/>
                             <constraint firstItem="P4c-Gm-tCT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Y1v-WV-Kgg"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="P4c-Gm-tCT" secondAttribute="bottom" constant="20" id="gjA-LA-Vdn"/>
                         </constraints>
@@ -44,6 +46,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="123.68815592203899"/>
         </scene>
     </scenes>
 </document>

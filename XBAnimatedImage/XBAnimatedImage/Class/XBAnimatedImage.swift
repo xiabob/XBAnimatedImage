@@ -67,6 +67,22 @@ open class XBAnimatedImage: UIImage {
         }
     }
     
+    func resetAnimatedImage(playRate: Float = kDefaultPlayRate) {
+        resetAnimatedImage(playRate: playRate, fluency: animatedImageFluency)
+    }
+    
+    func resetAnimatedImage(playRate: Float = kDefaultPlayRate, fluency: Float = kDefaultFluency) {
+        if isGif {
+            let imageSource = animatedImageProperties?.imageSource
+            animatedImageProperties = AnimatedImageProperties()
+            animatedImageProperties?.imageSource = imageSource
+            animatedImageProperties?.playRate = playRate
+            animatedImageProperties?.fluency = fluency
+            calculateDelayFrame(delayTimes: calculateDelayTimes(imageSource: animatedImageSource), fluency: kDefaultFluency)
+            calculateFrameSize()
+        }
+    }
+    
     //MARK: - Logic Method
     
     private func calculateDelayTimes(imageSource: CGImageSource?) -> [Float] {
@@ -99,7 +115,7 @@ open class XBAnimatedImage: UIImage {
             }
             
             //这是每一张图片展示的时间
-            return ((delayNumber.floatValue < kFloatEPS) ? 0.1 : delayNumber.floatValue)
+            return ((delayNumber.floatValue < kFloatEPS) ? 0.1 : delayNumber.floatValue) / (animatedImageProperties?.playRate ?? 1)
         }
         
         return frameDelayTimes
@@ -176,5 +192,6 @@ fileprivate class AnimatedImageProperties {
     var imageCount: Int? //动图包含的图片张数
     var displayOrder: [Int]? //图片展示的次序
     var fluency: Float = kDefaultFluency //图片质量，fluency设置gif展示的质量，0<fluency<=1
+    var playRate: Float = kDefaultPlayRate //播放速度
 }
 

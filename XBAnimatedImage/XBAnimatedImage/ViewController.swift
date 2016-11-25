@@ -17,6 +17,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         do {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+            view.addGestureRecognizer(tap)
+            
             let imageData = try Data(contentsOf: Bundle.main.url(forResource: "2", withExtension: "gif")!, options: [])
             let image = XBAnimatedImage(imageData: imageData, fluency: 0.8)
             
@@ -25,6 +28,7 @@ class ViewController: UIViewController {
             imageView?.contentMode = .scaleAspectFit
             view.addSubview(imageView!)
             
+            rateSlider.isContinuous = false //value非实时更新
             view.bringSubview(toFront: rateSlider)
         } catch {
             
@@ -33,9 +37,17 @@ class ViewController: UIViewController {
     }
 
     @IBAction func changeRate(_ sender: Any) {
-
+        imageView?.updatePlayRate(playRate: rateSlider.value)
+        print("playRate:\(imageView?.playRate)")
     }
     
+    func tapAction() {
+        if imageView!.animationType == .animating {
+            imageView?.pauseAnimating()
+        } else {
+            imageView?.resumeAnimating()
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
