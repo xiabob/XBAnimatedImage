@@ -1,5 +1,6 @@
 # XBAnimatedImage
 A animated gif engine for iOS in Swift inspired by [AImage](https://github.com/wangjwchn/AImage) and [FLAnimatedImage](https://github.com/Flipboard/FLAnimatedImage)
+![image](https://github.com/xiabob/XBAnimatedImage/blob/master/Images/sam.gif)
 ##要求
 iOS7+，xcode8.1+，swift 3
 ##使用
