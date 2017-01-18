@@ -12,4 +12,12 @@ imageView = XBAnimatedImageView(animatedImage: image)
 imageView?.frame = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: view.frame.height)
 view.addSubview(imageView!)
 </pre>
+###特性
+* fluency，GIF动画展示的质量
+* repeatCount，播放次数
+* playRate，播放速度，GIF动画播放的速度
+* animationComplete，动画播放结束后的回调
+* ……
+
+
 具体的功能请看[demo代码](https://github.com/xiabob/XBAnimatedImage/blob/master/XBAnimatedImage/XBAnimatedImage/ViewController.swift)
