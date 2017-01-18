@@ -37,6 +37,10 @@ open class XBAnimatedImageView: UIImageView {
     ///gif动画播放速度，默认是1正常速度，<1慢速，>1快速
     private(set) var playRate: Float = 1 //对外只读，对内可读写
     private(set) var animationType = XBAnimationType.animating
+    
+    ///当动画播放完成后（repeatCount此时减小到1），GIF图片展示的是否是最后一帧，默认是false，展示第一帧
+    open var isEndWithLast = false
+    open var animationComplete: (()->())?;
 
     
     //MARK: - Init
@@ -135,8 +139,15 @@ open class XBAnimatedImageView: UIImageView {
             let workItem = {
                 if self.repeatCount == 1 {
                     self.stopAnimating()
-                    self.currentImage = self.firstFrameImage
-                    self.image = self.currentImage
+                    
+                    //设置播放结束后展示的图片
+                    if self.isEndWithLast == false {
+                        self.currentImage = self.firstFrameImage
+                        self.image = self.currentImage
+                    }
+                    
+                    //播放结束后的回调
+                    self.animationComplete?()
                 } else if self.repeatCount > 1 {
                     self.repeatCount -= 1
                 }

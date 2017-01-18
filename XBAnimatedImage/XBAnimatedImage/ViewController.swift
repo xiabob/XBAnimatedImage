@@ -26,6 +26,11 @@ class ViewController: UIViewController {
             imageView = XBAnimatedImageView(animatedImage: image)
             imageView?.frame = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: view.frame.height)
             imageView?.contentMode = .scaleAspectFit
+            imageView?.repeatCount = 2;
+            imageView?.isEndWithLast = true
+            imageView?.animationComplete = {
+                print("animation end");
+            }
             view.addSubview(imageView!)
             
             rateSlider.isContinuous = false //value非实时更新
